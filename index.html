@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OceanCall - Whale Sound Classifier</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="ocean-bg">
+    <div class="particles" id="particles"></div>
+  </div>
+  
+  <div class="container">
+    <div class="header">
+      <div class="logo">
+        <span class="whale-icon">🐋</span>
+        <h1>OCEANCALL</h1>
+      </div>
+      <p class="subtitle">AI-powered aquatic mammal sound classification</p>
+    </div>
+
+    <div class="upload-section">
+      <form id="uploadForm">
+        <div class="file-upload-area" id="fileUploadArea">
+          <div class="upload-icon">🎵</div>
+          <h3>Drop your audio file here</h3>
+          <p>or click to browse</p>
+          <input type="file" id="audioFile" accept=".wav" required />
+          <div class="file-info" id="fileInfo"></div>
+        </div>
+        <button type="submit" class="classify-btn">
+          Analyze Audio
+        </button>
+      </form>
+    </div>
+
+    <div id="loading" class="loading hidden">
+      <div class="loading-spinner"></div>
+      <p>Analyzing ocean sounds...</p>
+    </div>
+
+    <div id="result" class="result hidden">
+      <h2>Classification Results</h2>
+      
+      <div class="prediction-card">
+        <div class="species-result">
+          <span class="label">Detected Species:</span>
+          <span class="species-name" id="species"></span>
+        </div>
+      </div>
+
+      <div class="confidence-section">
+        <h3>Confidence Scores</h3>
+        <div class="probabilities-container" id="probabilities"></div>
+      </div>
+      
+      <button class="analyze-another" onclick="resetForm()">
+        Analyze Another Audio
+      </button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

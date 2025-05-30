@@ -1,0 +1,378 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Exo 2", sans-serif;
+  background: #0a0a0f;
+  min-height: 100vh;
+  color: #ffffff;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.ocean-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at center, #1a1a2e 0%, #16213e 50%, #0a0a0f 100%);
+  z-index: -2;
+}
+
+.particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.particles::before {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: #00ffff;
+  box-shadow:
+    100px 200px #00ffff,
+    300px 100px #0080ff,
+    500px 300px #00ffff,
+    700px 150px #8000ff,
+    900px 250px #0080ff,
+    200px 400px #00ffff,
+    600px 450px #8000ff,
+    800px 50px #0080ff;
+  animation: float-particles 20s linear infinite;
+}
+
+@keyframes float-particles {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+  }
+  100% {
+    transform: translateY(-100vh) rotate(360deg);
+  }
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.logo {
+  margin-bottom: 20px;
+}
+
+.whale-icon {
+  font-size: 4rem;
+  display: block;
+  margin-bottom: 15px;
+  filter: drop-shadow(0 0 20px #00ffff);
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+h1 {
+  font-family: "Orbitron", monospace;
+  font-size: 3rem;
+  font-weight: 700;
+  background: linear-gradient(45deg, #00ffff, #0080ff, #8000ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 4px;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #a0a0a0;
+  font-weight: 300;
+}
+
+.upload-section {
+  background: rgba(15, 15, 25, 0.8);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 40px;
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 40px rgba(0, 255, 255, 0.1);
+  margin-bottom: 30px;
+}
+
+.file-upload-area {
+  border: 2px dashed rgba(0, 255, 255, 0.3);
+  border-radius: 15px;
+  padding: 40px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  background: rgba(0, 255, 255, 0.02);
+  margin-bottom: 25px;
+}
+
+.file-upload-area:hover {
+  border-color: #00ffff;
+  background: rgba(0, 255, 255, 0.05);
+}
+
+.file-upload-area.dragover {
+  border-color: #00ffff;
+  background: rgba(0, 255, 255, 0.1);
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+}
+
+.upload-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.file-upload-area h3 {
+  color: #00ffff;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.file-upload-area p {
+  color: #a0a0a0;
+  font-size: 1rem;
+}
+
+.file-upload-area input[type="file"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.file-info {
+  margin-top: 15px;
+  padding: 15px;
+  background: rgba(0, 255, 255, 0.1);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  border-radius: 10px;
+  color: #00ffff;
+  display: none;
+}
+
+.classify-btn {
+  width: 100%;
+  padding: 18px 30px;
+  background: linear-gradient(45deg, #0080ff, #8000ff);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: "Orbitron", monospace;
+  letter-spacing: 1px;
+}
+
+.classify-btn:hover {
+  box-shadow: 0 0 30px rgba(128, 0, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.classify-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.loading {
+  background: rgba(15, 15, 25, 0.8);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 40px;
+  text-align: center;
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 40px rgba(0, 255, 255, 0.1);
+}
+
+.loading-spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid rgba(0, 255, 255, 0.2);
+  border-top: 4px solid #00ffff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading p {
+  color: #00ffff;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.result {
+  background: rgba(15, 15, 25, 0.8);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 40px;
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 40px rgba(0, 255, 255, 0.1);
+}
+
+.result h2 {
+  color: #00ffff;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 25px;
+  text-align: center;
+  font-family: "Orbitron", monospace;
+}
+
+.prediction-card {
+  background: rgba(0, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 25px;
+  margin-bottom: 30px;
+  border-left: 5px solid #00ffff;
+}
+
+.species-result {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  color: #a0a0a0;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.species-name {
+  color: #00ffff;
+  font-size: 1.8rem;
+  font-weight: 700;
+  font-family: "Orbitron", monospace;
+}
+
+.confidence-section h3 {
+  color: #00ffff;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  font-family: "Orbitron", monospace;
+}
+
+.probabilities-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.probability-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  background: rgba(0, 128, 255, 0.1);
+  border-radius: 10px;
+  border-left: 4px solid #0080ff;
+}
+
+.probability-label {
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.probability-value {
+  font-weight: 600;
+  color: #00ffff;
+  font-family: "Orbitron", monospace;
+}
+
+.analyze-another {
+  width: 100%;
+  padding: 12px 25px;
+  background: transparent;
+  color: #00ffff;
+  border: 2px solid #00ffff;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 25px;
+  font-family: "Orbitron", monospace;
+}
+
+.analyze-another:hover {
+  background: #00ffff;
+  color: #0a0a0f;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 20px 15px;
+  }
+
+  .upload-section,
+  .loading,
+  .result {
+    padding: 25px;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+}
