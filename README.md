@@ -25,7 +25,7 @@
 | Backend (Inference) | AWS Lambda + API Gateway                |
 | Model Hosting     | Amazon SageMaker (Containerized Endpoint)|
 | Storage           | Amazon S3 (temporary file storage)       |
-| Frontend          | React + AWS Amplify (Static Site Hosting)|
+| Frontend          | Amazon S3 Static Website |
 
 ---
 
