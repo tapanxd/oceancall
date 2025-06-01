@@ -7,7 +7,7 @@ const resultEl = document.getElementById("result")
 const speciesEl = document.getElementById("species")
 const probabilitiesEl = document.getElementById("probabilities")
 
-const API_URL = "https://your-api-id.execute-api.us-east-1.amazonaws.com/predict"
+const API_URL = "https://p5ezrtfbu2.execute-api.us-east-1.amazonaws.com/default/OceanCallAudioHandler"
 
 // Create floating particles
 function createParticles() {
@@ -102,13 +102,10 @@ form.addEventListener("submit", async (e) => {
   formData.append("file", file)
 
   try {
-    const response = await fetch(
-      "https://p5ezrtfbu2.execute-api.us-east-1.amazonaws.com/default/OceanCallAudioHandler",
-      {
-        method: "POST",
-        body: formData,
-      },
-    )
+    const response = await fetch(API_URL, {
+      method: "POST",
+      body: formData,
+    })
 
     if (!response.ok) {
       throw new Error("Server returned an error.")
