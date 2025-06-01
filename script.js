@@ -54,18 +54,23 @@ function handleDrop(e) {
     const file = files[0]
     if (file.type === "audio/wav") {
       fileInput.files = files
-      showFileInfo(file)
+      // Trigger the change event to update file info
+      const event = new Event("change", { bubbles: true })
+      fileInput.dispatchEvent(event)
     } else {
       alert("Please upload a valid .wav file.")
     }
   }
 }
 
-// File input change
-fileInput.addEventListener("change", (e) => {
-  const file = e.target.files[0]
-  if (file) {
-    showFileInfo(file)
+// File input change - integrated your code
+fileInput.addEventListener("change", () => {
+  if (fileInput.files.length > 0) {
+    fileInfo.innerText = `Selected file: ${fileInput.files[0].name}`
+    fileInfo.style.display = "block"
+  } else {
+    fileInfo.innerText = ""
+    fileInfo.style.display = "none"
   }
 })
 
@@ -80,46 +85,57 @@ function showFileInfo(file) {
   fileInfo.style.display = "block"
 }
 
-// Form submission
+// Form submission - integrated your code and fixed for your API response
 form.addEventListener("submit", async (e) => {
   e.preventDefault()
+  resultEl.classList.add("hidden")
+  loadingEl.classList.remove("hidden")
 
   const file = fileInput.files[0]
-  if (!file || file.type !== "audio/wav") {
-    alert("Please upload a valid .wav file.")
+  if (!file) {
+    alert("Please select an audio file.")
+    loadingEl.classList.add("hidden")
     return
   }
 
-  loadingEl.classList.remove("hidden")
-  resultEl.classList.add("hidden")
+  const formData = new FormData()
+  formData.append("file", file)
 
   try {
-    const response = await fetch(API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "audio/wav" },
-      body: file,
-    })
+    const response = await fetch(
+      "https://p5ezrtfbu2.execute-api.us-east-1.amazonaws.com/default/OceanCallAudioHandler",
+      {
+        method: "POST",
+        body: formData,
+      },
+    )
+
+    if (!response.ok) {
+      throw new Error("Server returned an error.")
+    }
 
     const data = await response.json()
-    loadingEl.classList.add("hidden")
 
-    speciesEl.textContent = data.prediction
+    // Display the prediction
+    speciesEl.innerText = data.prediction
+
+    // Clear previous results
     probabilitiesEl.innerHTML = ""
 
-    for (const [label, prob] of Object.entries(data.probabilities)) {
-      const li = document.createElement("div")
-      li.className = "probability-item"
-      li.innerHTML = `
-        <span class="probability-label">${label}</span>
-        <span class="probability-value">${(prob * 100).toFixed(2)}%</span>
-      `
-      probabilitiesEl.appendChild(li)
-    }
+    // Create a single probability item showing the confidence
+    const confidenceItem = document.createElement("div")
+    confidenceItem.className = "probability-item"
+    confidenceItem.innerHTML = `
+      <span class="probability-label">${data.prediction}</span>
+      <span class="probability-value">${(data.confidence * 100).toFixed(2)}%</span>
+    `
+    probabilitiesEl.appendChild(confidenceItem)
 
     resultEl.classList.remove("hidden")
   } catch (err) {
+    alert("❌ Error: " + err.message)
+  } finally {
     loadingEl.classList.add("hidden")
-    alert("Error: " + err.message)
   }
 })
 
