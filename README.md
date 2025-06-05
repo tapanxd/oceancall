@@ -40,6 +40,7 @@
    - Load and preprocess the audio base64 using librosa
    - Extract PANNs-based embeddings
    - Predict whale species using XGBoost
+      - Currently, 5 classes are defined viz. Sperm Whale, Common Dolphin, Long Finned Pilot Whale, Humpback Whale and Killer Whale.    
 4. **Prediction Results** are returned to the frontend for display, including confidence scores and metadata.
 
 ---
