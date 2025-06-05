@@ -1,7 +1,10 @@
-![image](https://github.com/user-attachments/assets/ec4f77cd-4561-4cc6-af78-07b14b4b8e38)
-<center>https://d1yk22cxi63m6w.cloudfront.net/</center>
-
 # OceanCall – Whale Sound Classifier
+
+![OceanCall Screenshot](https://github.com/user-attachments/assets/ec4f77cd-4561-4cc6-af78-07b14b4b8e38)
+
+<center><strong>OceanCall Live website:</strong> https://d1yk22cxi63m6w.cloudfront.net/</center>
+
+---
 
 **OceanCall** is an AI-powered marine sound classification system designed to identify whale species from underwater `.wav` audio recordings. The project combines deep audio feature extraction with traditional machine learning classification and is deployed as a scalable, cloud-native application using AWS services.
 
@@ -18,26 +21,26 @@
 
 ## 🛠️ Tech Stack
 
-| Component         | Technology Used                          |
-|------------------|-------------------------------------------|
-| Feature Extraction | [PANNs (CNN14)](https://github.com/qiuqiangkong/panns-inference) |
-| Classification     | XGBoost                                  |
-| Backend (Inference) | AWS Lambda + API Gateway                |
-| Model Hosting     | Amazon SageMaker (Containerized Endpoint)|
-| Storage           | Amazon S3 (temporary file storage)       |
-| Frontend          | Amazon S3 Static Website |
+| Component           | Technology Used                                                     |
+|---------------------|---------------------------------------------------------------------|
+| Feature Extraction  | [PANNs (CNN14)](https://github.com/qiuqiangkong/panns-inference)    |
+| Classification      | XGBoost                                                             |
+| Backend (Inference) | AWS Lambda + API Gateway                                            |
+| Model Hosting       | Amazon SageMaker Notebook + ngrok endpoint                          |
+| Metadata Storage    | Aamzon DynamoDB                                                     |
+| Frontend            | Amazon S3 + Amazon CloudFront                                       |
 
 ---
 
 ## 📦 Architecture Overview
 
-1. **User Uploads** `.wav` audio via web interface.
-2. **Lambda Function** validates the file and stores it in **S3**.
-3. A **SageMaker Endpoint** is invoked:
-   - Loads audio
-   - Extracts embeddings via PANNs
-   - Predicts species via XGBoost
-4. Result is returned to the frontend and visualized with confidence scores and summaries.
+1. **User Uploads** `.wav` audio via the frontend interface.
+2. **Lambda Function** validates and converts audio in base64 format.
+3. **SageMaker Endpoint** is triggered to:
+   - Load and preprocess the audio base64 using librosa
+   - Extract PANNs-based embeddings
+   - Predict whale species using XGBoost
+4. **Prediction Results** are returned to the frontend for display, including confidence scores and metadata.
 
 ---
 
@@ -45,8 +48,20 @@
 
 - Predicted Whale Species
 - Confidence Probability per Class
-- Audio Metadata (duration, sample rate)
-- Visual chart of prediction scores
+- Audio Metadata (e.g., duration, sample rate)
+- Visual Chart of Prediction Scores
 
 ---
 
+## 📚 Dataset Source
+
+This project uses sound files and associated metadata from the **Watkins Marine Mammal Sound Database**, which is made available for academic and personal (non-commercial) use by the **Woods Hole Oceanographic Institution** and the **New Bedford Whaling Museum**.
+
+Please note: *Reposting this work on third-party websites is not permitted.*
+
+**Citation:**  
+> "Watkins Marine Mammal Sound Database, Woods Hole Oceanographic Institution and the New Bedford Whaling Museum."
+
+Dataset Link: [https://whoicf2.whoi.edu/science/B/whalesounds/index.cfm](https://whoicf2.whoi.edu/science/B/whalesounds/index.cfm)
+
+---
